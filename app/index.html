@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Leonida Legend — GTA VI Trophy Guide &amp; Tracker</title>
+<meta name="description" content="An offline guide and tracker for all 55 Grand Theft Auto VI PlayStation 5 trophies: the official list, a cited guide to each, a saved checklist, a spoiler setting and a roadmap to the platinum.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="hero" id="top">
+  <p class="eyebrow">Grand Theft Auto VI · PlayStation 5 · Fan-made guide</p>
+  <h1>Leonida <span class="neon">Legend</span></h1>
+  <p class="tagline">All 55 trophies from the official list, a guide to each in our own words with its sources named, and a tracker that saves your hunt in this browser. No account, no network — it works offline.</p>
+  <div class="hero-stats">
+    <div class="ring-wrap">
+      <svg id="ring" viewBox="0 0 84 84" width="118" height="118" aria-hidden="true">
+        <circle class="ring-bg" cx="42" cy="42" r="34"></circle>
+        <circle class="ring-fg" id="ring-fg" cx="42" cy="42" r="34"></circle>
+      </svg>
+      <div class="ring-label"><strong id="ring-count">0/55</strong><span>earned</span></div>
+    </div>
+    <div class="stat-bars">
+      <div class="stat-line"><span>Trophies</span><strong id="stat-count">0 of 55</strong></div>
+      <div class="stat-line"><span>Gamerscore</span><strong id="stat-score">0 of 1,000G</strong></div>
+      <div class="grade-bars" id="grade-bars"></div>
+    </div>
+    <ul class="makeup">
+      <li><i class="dot grade-platinum"></i>1 Platinum</li>
+      <li><i class="dot grade-gold"></i>2 Gold</li>
+      <li><i class="dot grade-silver"></i>6 Silver</li>
+      <li><i class="dot grade-bronze"></i>46 Bronze</li>
+      <li>28 hidden</li>
+      <li>1,000G total</li>
+    </ul>
+  </div>
+</header>
+
+<section class="controls" id="controls" aria-label="Checklist controls">
+  <div class="control-row">
+    <label class="search">Search
+      <input id="q" type="search" placeholder="Try “bank vault”…" autocomplete="off">
+    </label>
+    <label>Status
+      <select id="status">
+        <option value="all">All trophies</option>
+        <option value="earned">Earned</option>
+        <option value="missing">Missing</option>
+      </select>
+    </label>
+    <label>Sort
+      <select id="sort">
+        <option value="list">List order</option>
+        <option value="grade">Grade</option>
+        <option value="name">Name</option>
+        <option value="rarity">Rarity</option>
+      </select>
+    </label>
+    <label class="spoiler-toggle">
+      <input id="spoilers" type="checkbox"> Reveal hidden trophies
+    </label>
+  </div>
+  <div class="chip-row" id="grade-chips" role="group" aria-label="Filter by grade">
+    <button type="button" class="chip" data-grade="all">All grades</button>
+    <button type="button" class="chip" data-grade="platinum">Platinum</button>
+    <button type="button" class="chip" data-grade="gold">Gold</button>
+    <button type="button" class="chip" data-grade="silver">Silver</button>
+    <button type="button" class="chip" data-grade="bronze">Bronze</button>
+  </div>
+  <div class="chip-row" id="cat-chips" role="group" aria-label="Filter by kind">
+    <button type="button" class="chip" data-cat="all">All kinds</button>
+    <button type="button" class="chip" data-cat="story">Story</button>
+    <button type="button" class="chip" data-cat="side">Side missions</button>
+    <button type="button" class="chip" data-cat="collectibles">Collectibles</button>
+    <button type="button" class="chip" data-cat="activities">Activities</button>
+    <button type="button" class="chip" data-cat="crime">Crime &amp; heists</button>
+    <button type="button" class="chip" data-cat="world">World &amp; money</button>
+    <button type="button" class="chip" data-cat="missable">Missable</button>
+  </div>
+  <div class="control-row actions">
+    <button id="export" type="button">Export progress</button>
+    <button id="import-btn" type="button">Import progress</button>
+    <input id="import-file" type="file" accept="application/json,.json" hidden>
+    <button id="reset" type="button">Reset progress</button>
+    <span id="visible-count" class="visible-count"></span>
+  </div>
+  <p class="rarity-note">Rarity sort ranks by grade first, then Gamerscore. No earn-rate percentages exist for a game this new, so none are shown anywhere in this guide.</p>
+</section>
+
+<div class="layout">
+  <aside class="guide-panel" id="guide-panel" aria-label="Trophy guide"></aside>
+  <main>
+    <div class="grid" id="grid"></div>
+    <p class="empty" id="empty" hidden>No trophies match those filters. Loosen the search or clear a filter.</p>
+  </main>
+</div>
+
+<section class="roadmap" id="roadmap">
+  <h2>Roadmap to the Platinum</h2>
+  <p class="roadmap-intro">Three steps, in order, built from the official descriptions: the story first (it cannot be missed, but it unlocks everything else), then the open-world sweep while the map is fresh, then the 100% checklist that finishes the job.</p>
+  <div class="steps">
+    <article class="step" id="roadmap-step-1">
+      <p class="step-num">Step 1</p>
+      <h3>Play the story — and save like you mean it</h3>
+      <p>The 12 story trophies (Chapters 1–4, Gone Fishing, Breakfast Run, The Cartel Heist, Child's Play, Headliners, VCIA Takedown, Operation Savage Glory and the final mission) are unmissable, so just play. There is no mission replay and no New Game+: keep a manual save at the start of every chapter and one more before the final mission. In Chapter 1, the morning after Down to Earth, follow Lucia from the kitchen and take the balcony meditation — see the missable watch below. And leave cheats off: they disable trophies and saving.</p>
+    </article>
+    <article class="step" id="roadmap-step-2">
+      <p class="step-num">Step 2</p>
+      <h3>Sweep the open world, with your partner</h3>
+      <p>Work the stranger strands (watch the Strangers &amp; Freaks counter — not every strand counts toward it), the robbery set (bank vaults after Chapter 4's optional mission, Sneakthief once Chapter 3 hands you the Snap Gun, shops and armored trucks, and a 4-star escape with your partner for Hot Together), the activities (shooting ranges, races, stunts, drone races) and the collections (cards, WAiNK scans, vehicle discoveries, meditation spots). Most counters feed the 100% checklist too, so this step is never wasted time.</p>
+    </article>
+    <article class="step" id="roadmap-step-3">
+      <p class="step-num">Step 3</p>
+      <h3>Close out the 100%</h3>
+      <p>Open Progress, then Stats, then 100% Completion, and work the checklist down: the remaining robberies and gang operations, Bret's Target Decks, the underwater discoveries and whatever is left of the big counters. When the last trophy lands, Vice Got a Price! — the platinum — pops on its own. Published estimates put the whole run near 200 hours.</p>
+    </article>
+  </div>
+  <div class="missable-callout" id="missables">
+    <h3>Missable watch</h3>
+    <p>One trophy is <strong>possibly missable: Positive Mental Attitude</strong> (meditate at every spot). One of its 18 spots is Lucia's Chapter 1 balcony meditation, available only the morning after the mission Down to Earth — follow her from the kitchen and accept. The spot disappears when Chapter 1 ends, and whether the trophy strictly needs it is not yet confirmed; take the two minutes and be safe. Everything else on the list can be cleaned up after the story.</p>
+  </div>
+</section>
+
+<section class="sources" id="sources">
+  <h2>Sources</h2>
+  <p>Trophy names, descriptions, grades and hidden flags are the official list as PlayStation publishes it. Each trophy's guide names its own sources on its card; the list itself and the facts behind the guides come from:</p>
+  <ul id="source-list"></ul>
+  <p class="fineprint">The guides are original text written for this entry — drawn from the sources above, never copied from them. Where no source confirms a trophy's trigger yet, the guide says so plainly instead of inventing steps.</p>
+</section>
+
+<footer>
+  <p>Leonida Legend is a fan-made guide and tracker. Not affiliated with Rockstar Games or Take-Two Interactive. No Rockstar logo or official artwork is used — the look is our own.</p>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
