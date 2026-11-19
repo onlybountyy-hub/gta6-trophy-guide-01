@@ -1,8 +1,8 @@
 # Leonida Legend — GTA 6 Trophy Guide
 
-[![Competition](https://img.shields.io/badge/make.fun-gta6--trophy--guide--01-7c3aed)](https://make.fun/bounty/gta6-trophy-guide-01)
-[![Entry](https://img.shields.io/badge/entry-Leonida%20Legend-ff2e88)](https://make.fun/bounty/gta6-trophy-guide-01)
-[![Referral](https://img.shields.io/badge/referral-q6ckzx1w-22d3ee)](https://make.fun/r/q6ckzx1w)
+[![make.fun · gta6-trophy-guide-01](https://make.fun/badge/gta6-trophy-guide-01.svg)](https://make.fun/bounty/gta6-trophy-guide-01?utm_source=github&utm_medium=readme&utm_campaign=gta6-trophy-guide-01)
+[![rank](https://make.fun/badge/gta6-trophy-guide-01/onlybountyy-hub/gta6-trophy-guide-01/rank.svg)](https://make.fun/bounty/gta6-trophy-guide-01/leaderboard?utm_source=github&utm_medium=readme&utm_campaign=gta6-trophy-guide-01)
+[![reward](https://make.fun/badge/gta6-trophy-guide-01/onlybountyy-hub/gta6-trophy-guide-01/reward.svg)](https://make.fun/bounty/gta6-trophy-guide-01?utm_source=github&utm_medium=readme&utm_campaign=gta6-trophy-guide-01)
 
 An offline trophy guide and tracker for the 55 PlayStation 5 trophies of
 Grand Theft Auto VI. Open `app/index.html` in a browser — no network, no
