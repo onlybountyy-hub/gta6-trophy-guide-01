@@ -1,35 +1,40 @@
-// Leonida Legend — hands the guide in.
+// Leonida Legend — hand-in program for the make.fun bounty gta6-trophy-guide-01.
 //
-// Copies app/ and screenshots/ from this repository into the output
-// directory and writes dossier.json there with the kit's frontend
-// library, byte for byte as the scorer will rebuild it. In the grader
-// the output directory is /output; outside it, MAKEFUN_OUTPUT_DIR
-// stands in for it.
+// The guide itself is the static web app in app/ (open app/index.html in a browser; it
+// works with the network off). This program is only the delivery van: it copies app/
+// and screenshots/ into the output directory and writes dossier.json there with the
+// kit's buildDossier, so the judge receives exactly the bytes the scorer rebuilds.
+//
+// Run locally with:  mkdir -p out && MAKEFUN_OUTPUT_DIR=out node main.ts
+// In the grader's container the output directory is /output and MAKEFUN_OUTPUT_DIR
+// is unset, which is why it is the default below.
 
-import { cpSync, existsSync, mkdirSync, readdirSync, writeFileSync } from "node:fs";
-import { dirname, join } from "node:path";
-import { fileURLToPath } from "node:url";
-import { buildDossier } from "./vendor/makefun-frontend.ts";
+import { cpSync, existsSync, mkdirSync, writeFileSync } from 'node:fs';
+import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { buildDossier } from './vendor/makefun-frontend.ts';
 
-const here = dirname(fileURLToPath(import.meta.url));
-const out = process.env.MAKEFUN_OUTPUT_DIR ?? "/output";
+const repoDir = fileURLToPath(new URL('.', import.meta.url));
+const outDir = process.env.MAKEFUN_OUTPUT_DIR ?? '/output';
 
-mkdirSync(out, { recursive: true });
-cpSync(join(here, "app"), join(out, "app"), { recursive: true });
-mkdirSync(join(out, "screenshots"), { recursive: true });
-if (existsSync(join(here, "screenshots"))) {
-  cpSync(join(here, "screenshots"), join(out, "screenshots"), { recursive: true });
+mkdirSync(outDir, { recursive: true });
+cpSync(join(repoDir, 'app'), join(outDir, 'app'), { recursive: true });
+
+const shotsDir = join(outDir, 'screenshots');
+mkdirSync(shotsDir, { recursive: true });
+if (existsSync(join(repoDir, 'screenshots'))) {
+  cpSync(join(repoDir, 'screenshots'), shotsDir, { recursive: true });
 }
 
-// The scorer's caps (reference/gate.json): text_max_bytes shapes the
-// dossier's bytes; the rest refuse anything the scorer would refuse.
-const dossier = buildDossier(out, {
+// The caps mirror the scorer's gate (reference/gate.json): at most 4 screenshots of
+// at most 256 KiB, at most 993 files and 48 MiB under app/, dossier text capped at
+// 160 KiB. buildDossier refuses anything past them, which is what we want locally too.
+const dossier = buildDossier(outDir, {
   text_max_bytes: 163840,
   screenshots: { max: 4, max_bytes: 262144 },
   app_max_files: 993,
   app_max_bytes: 50331648,
 });
-writeFileSync(join(out, "dossier.json"), dossier);
+writeFileSync(join(outDir, 'dossier.json'), dossier);
 
-const shots = readdirSync(join(out, "screenshots")).filter((name) => !name.startsWith("."));
-console.log(`Leonida Legend: ${shots.length} screenshots, dossier ${dossier.length} bytes written to ${join(out, "dossier.json")}`);
+console.log(`Leonida Legend handed in: app/ + screenshots/ + dossier.json -> ${outDir}`);
