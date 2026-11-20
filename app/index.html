@@ -1,175 +1,87 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Leonida Legend — GTA VI Trophy Guide &amp; Tracker</title>
-<meta name="description" content="The complete offline guide and tracker for all 55 Grand Theft Auto VI trophies on PlayStation 5: checklist, roadmap to the platinum, cited guides, spoiler-safe.">
+<title>LEONIDA — Trophy Intelligence | GTA VI Trophy Guide</title>
 <link rel="stylesheet" href="style.css">
-<script type="module" src="app.js"></script>
 </head>
 <body>
-<header class="hero" id="top">
-  <div class="hero-inner">
-    <div class="hero-copy">
-      <p class="eyebrow">Grand Theft Auto VI &middot; PlayStation 5 &middot; 55 trophies</p>
-      <h1><span class="title-leonida">LEONIDA</span> <span class="title-legend">LEGEND</span></h1>
-      <p class="tagline">Every trophy. Every step. One platinum. The complete offline guide &amp; tracker — no ads, no account, no network.</p>
-      <nav class="hero-nav" aria-label="Sections">
-        <a href="#guide" class="nav-link">Guide</a>
-        <a href="#roadmap" class="nav-link">Roadmap</a>
-        <a href="#sources" class="nav-link">Sources</a>
-      </nav>
-      <div class="hero-stats" id="heroStats" aria-live="polite"></div>
-    </div>
-    <div class="hero-ring" role="img" aria-label="Completion ring">
-      <svg viewBox="0 0 200 200" class="ring-svg" aria-hidden="true">
-        <defs>
-          <linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="#ff2e88"/>
-            <stop offset="0.55" stop-color="#a855f7"/>
-            <stop offset="1" stop-color="#00e5ff"/>
-          </linearGradient>
-        </defs>
-        <circle class="ring-track" cx="100" cy="100" r="84"/>
-        <circle class="ring-fill" id="ringFill" cx="100" cy="100" r="84"/>
-      </svg>
-      <div class="ring-center">
-        <span class="ring-pct" id="ringPct">0%</span>
-        <span class="ring-label">complete</span>
-        <span class="ring-count" id="ringCount">0 / 55</span>
-      </div>
-    </div>
+<header class="top">
+  <div class="brand">
+    <div class="logo">LEONIDA</div>
+    <div class="tag">TROPHY INTELLIGENCE &middot; THE DEFINITIVE FAN-MADE GTA VI TROPHY COMPANION</div>
+    <div class="disclaimer">Fan-made guide — the trophy list is speculative, from the competition kit, not the confirmed final GTA VI list. No Rockstar logo or artwork.</div>
+  </div>
+  <div class="plat">
+    <svg class="ring" viewBox="0 0 120 120" width="86" height="86" aria-label="Platinum progress ring"><circle cx="60" cy="60" r="52" class="ring-bg"/><circle id="ringFg" cx="60" cy="60" r="52" class="ring-fg"/><text id="ringPct" x="60" y="66" class="ring-txt">0%</text></svg>
+    <div class="plat-txt"><strong id="progressLine">0 of 55 earned</strong><span id="progressSub">Platinum: Vice Got a Price! — 0 of 54 others earned</span><span id="saveState" class="saved">Progress saved</span><span id="demoBadge" class="demo" hidden>Demo progress — fixed sample data</span></div>
   </div>
 </header>
+<nav class="tabs" id="tabs">
+  <button type="button" data-view="command" class="active">Command Center</button>
+  <button type="button" data-view="guide">Strategy Library</button>
+  <button type="button" data-view="roadmap">Platinum Navigator</button>
+  <button type="button" data-view="toolkit">Player Toolkit</button>
+</nav>
+<div class="controls" id="controls">
+  <input id="search" type="search" placeholder="Search trophies, missions, counts…" aria-label="Search trophies">
+  <select id="grade" aria-label="Filter by grade"><option value="all">All grades</option><option value="platinum">Platinum</option><option value="gold">Gold</option><option value="silver">Silver</option><option value="bronze">Bronze</option></select>
+  <select id="category" aria-label="Filter by category"><option value="all">All categories</option></select>
+  <select id="risk" aria-label="Filter by risk"><option value="all">All risk classes</option><option value="NO MISSABLE EVIDENCE">No missable evidence</option><option value="CHOICE-SENSITIVE">Choice-sensitive</option></select>
+  <select id="status" aria-label="Filter by status"><option value="all">All statuses</option><option value="earned">Earned</option><option value="remaining">Remaining</option></select>
+  <span id="countLine" class="countline"></span>
+</div>
 
-<main>
-  <section class="nextup" id="nextUp" aria-label="Next up">
-    <div class="section-head">
-      <h2>Next up</h2>
-      <p>The five easiest trophies you have not earned yet — grade first, then Gamerscore.</p>
+<section id="view-command" class="view">
+  <div class="cmd-grid">
+    <div class="panel list-panel"><h2>Trophy Checklist</h2><ul id="list" class="tlist"></ul></div>
+    <div class="panel detail-panel"><h2>Selected Guide</h2><div id="detail"></div></div>
+    <div class="panel side-panel">
+      <h2>Next Recommendation</h2><div id="nextRec"></div>
+      <h2>Progress Tools</h2>
+      <div class="toolrow"><button id="exportBtn" type="button">Export progress (JSON)</button><label class="import">Import progress<input id="importFile" type="file" accept="application/json"></label></div>
+      <p id="importMsg" class="msg"></p>
+      <h2>At a Glance</h2><div id="miniStats" class="ministats"></div>
+      <h2>Audit Summary</h2><div id="miniAudit" class="ministats"></div>
     </div>
-    <div class="nextup-list" id="nextUpList"></div>
-  </section>
-
-  <section class="guide" id="guide" aria-label="Trophy guide">
-    <div class="section-head">
-      <h2>The guide</h2>
-      <p>Tick a trophy when you earn it — progress saves in your browser. Hidden trophies stay masked until you earn them or switch spoilers off.</p>
-    </div>
-
-    <div class="toolbar" id="toolbar">
-      <input type="search" id="searchInput" placeholder="Search trophies, missions, places…" aria-label="Search trophies">
-      <div class="grade-chips" id="gradeChips" role="group" aria-label="Filter by grade">
-        <button type="button" class="chip active" data-grade="all">All grades</button>
-        <button type="button" class="chip chip-platinum" data-grade="platinum">Platinum</button>
-        <button type="button" class="chip chip-gold" data-grade="gold">Gold</button>
-        <button type="button" class="chip chip-silver" data-grade="silver">Silver</button>
-        <button type="button" class="chip chip-bronze" data-grade="bronze">Bronze</button>
-      </div>
-      <div class="toolbar-row">
-        <label class="field">Status
-          <select id="statusSelect">
-            <option value="all">All trophies</option>
-            <option value="earned">Earned</option>
-            <option value="remaining">Still to earn</option>
-          </select>
-        </label>
-        <label class="field">Category
-          <select id="categorySelect">
-            <option value="all">All categories</option>
-            <option value="story">Story</option>
-            <option value="mission">Missions</option>
-            <option value="activity">Activities</option>
-            <option value="collectible">Collectibles</option>
-            <option value="challenge">Challenges</option>
-            <option value="crime">Crime</option>
-            <option value="completion">Completion</option>
-            <option value="missable">Missable</option>
-          </select>
-        </label>
-        <label class="field">Sort
-          <select id="sortSelect">
-            <option value="list">List order</option>
-            <option value="grade">Grade</option>
-            <option value="name">Name A–Z</option>
-            <option value="rarity">Rarity (grade + Gamerscore)</option>
-          </select>
-        </label>
-        <label class="toggle">
-          <input type="checkbox" id="spoilerToggle" checked>
-          <span class="toggle-track"><span class="toggle-thumb"></span></span>
-          Hide spoilers
-        </label>
-      </div>
-      <div class="toolbar-row actions-row">
-        <button type="button" class="btn" id="exportBtn">Export progress</button>
-        <button type="button" class="btn" id="importBtn">Import progress</button>
-        <input type="file" id="importFile" accept=".json,application/json" hidden>
-        <button type="button" class="btn" id="shareBtn">Copy progress summary</button>
-        <button type="button" class="btn btn-danger" id="resetBtn">Reset progress</button>
-        <span class="result-count" id="resultCount" aria-live="polite"></span>
-      </div>
-    </div>
-
-    <div class="progress-bars" id="progressBars" aria-label="Progress by grade"></div>
-    <div class="card-grid" id="cardGrid"></div>
-    <p class="empty-note" id="emptyNote" hidden>No trophies match these filters — loosen one and try again.</p>
-  </section>
-
-  <section class="roadmap" id="roadmap" aria-label="Roadmap to the platinum">
-    <div class="section-head">
-      <h2>Roadmap to the platinum</h2>
-      <p>Four phases, in order. Play the story first, then clean up the map — that order keeps you from redoing activities. Tap any trophy to open its guide.</p>
-    </div>
-    <ol class="timeline" id="timeline"></ol>
-  </section>
-
-  <section class="sources" id="sources" aria-label="Sources and notes">
-    <div class="section-head">
-      <h2>Sources &amp; notes</h2>
-    </div>
-    <div class="sources-grid">
-      <div class="sources-col">
-        <h3>Where the facts come from</h3>
-        <ul>
-          <li><strong>Exophase</strong> — the official trophy list (names, descriptions, grades), verified live: all 55 descriptions matched in order. <span class="src-url">exophase.com/game/grand-theft-auto-vi-psn/trophies/</span></li>
-          <li><strong>PSNProfiles</strong> — PSN points and progress targets. <span class="src-url">psnprofiles.com/trophies/43531-grand-theft-auto-vi</span></li>
-          <li><strong>GTABase</strong> — Gamerscore values and the possibly-missable flag for Positive Mental Attitude.</li>
-          <li><strong>PowerPyx</strong> — the possibly-missable flag for Positive Mental Attitude; difficulty and time estimates.</li>
-          <li><strong>ofzenandcomputing</strong> — hidden / visible split (28 hidden, 27 visible) and the phase order of the roadmap. <span class="src-url">ofzenandcomputing.com/gta-6-trophy-list-trophies-achievements/</span></li>
-          <li><strong>EGamers</strong> — hidden / visible split and the missable discussion. <span class="src-url">egamers.io/gta-6-trophy-list-all-55-trophies-and-achievements-plus-the-hardest-ones/</span></li>
-          <li><strong>GTA Zone</strong> — 100% counts (stunts, races, challenges), which stranger strands count, and the bank-vault details. <span class="src-url">gta-zone.com/news/gta-6-trophies-achievements/</span></li>
-        </ul>
-        <p class="sources-note">Every guide on this page is written in our own words for this guide. A source is cited, never copied. The official trophy names and descriptions are shown exactly as PlayStation publishes them — that is the one exception.</p>
-      </div>
-      <div class="sources-col">
-        <h3>How rarity works here</h3>
-        <p>No earn-rate percentages are published for this game anywhere, so this guide shows none — any percentage would be invented. Rarity order is grade first, then Gamerscore: Platinum, Gold, Silver, then Bronze by Gamerscore.</p>
-        <h3>Points scales</h3>
-        <p>Gamerscore uses the 180 / 90 / 30 / 10 scale — Platinum 180, Gold 90, Silver 30, Bronze 10 — totalling exactly 1,000G. PSN points use the 300 / 90 / 30 / 15 scale — totalling 1,350.</p>
-        <h3>Missable trophies</h3>
-        <p>Only one trophy is flagged as possibly missable: <strong>Positive Mental Attitude</strong> (meditate at every spot). GTABase and PowerPyx both flag it; other lists report nothing as missable. The guide hedges it and tells you to clear the spots as you find them.</p>
-        <h3>Offline &amp; open</h3>
-        <p>This guide is static files that work with the network off. Your progress never leaves your browser except when you export it yourself. MIT licensed — fork it, host it, improve it.</p>
-      </div>
-    </div>
-  </section>
-</main>
-
-<footer class="footer">
-  <p><strong>Leonida Legend</strong> — an unofficial fan guide. Grand Theft Auto and GTA are trademarks of Take-Two Interactive; this guide is not affiliated with Rockstar Games and uses no official artwork or logos.</p>
-  <p><a href="#top">Back to top</a></p>
-</footer>
-
-<aside class="detail" id="detailPanel" aria-label="Trophy detail" hidden>
-  <div class="detail-backdrop" id="detailBackdrop"></div>
-  <div class="detail-sheet" role="dialog" aria-modal="true" aria-labelledby="detailName">
-    <button type="button" class="detail-close" id="detailClose" aria-label="Close detail">&times;</button>
-    <div class="detail-body" id="detailBody"></div>
   </div>
-</aside>
+</section>
 
-<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+<section id="view-guide" class="view" hidden>
+  <div class="guide-grid">
+    <div class="panel"><h2>All 55 Guides</h2><ul id="guideList" class="tlist compact"></ul></div>
+    <div class="panel"><h2>Evidence Intelligence — Full Guide</h2><div id="guideDetail"></div></div>
+  </div>
+</section>
+
+<section id="view-roadmap" class="view" hidden>
+  <div class="panel"><h2>Platinum Navigator — 5 Phases to the Platinum</h2><div id="phases" class="phases"></div></div>
+  <div class="road-grid">
+    <div class="panel"><h2>Completion Heatmap — 55 Trophies</h2><div id="heatmap" class="heatmap"></div><p class="legend"><span class="sw earned">Earned</span><span class="sw remaining">Not started</span><span class="sw review">Audit: review</span> Click a cell to open its guide.</p></div>
+    <div class="panel"><h2>Risk Intelligence</h2><div id="riskPanel"></div></div>
+    <div class="panel"><h2>Verified Relationships</h2><div id="relPanel"></div></div>
+  </div>
+</section>
+
+<section id="view-toolkit" class="view" hidden>
+  <div class="tool-grid">
+    <div class="panel"><h2>Export / Import</h2><p>Progress, journal notes and audit state are saved in this browser (localStorage) and travel in one JSON file.</p>
+      <div class="toolrow"><button id="exportBtn2" type="button">Export progress (JSON)</button><label class="import">Import progress<input id="importFile2" type="file" accept="application/json"></label></div>
+      <p id="importMsg2" class="msg"></p>
+      <p><button id="shareBtn" type="button">Share progress summary</button> <button id="resetBtn" type="button">Reset progress…</button></p>
+      <p id="shareOut" class="msg"></p>
+      <h2>Backup Status</h2><p id="backupLine" class="msg"></p></div>
+    <div class="panel"><h2>Statistics</h2><div id="gradeStats"></div><div id="catStats"></div></div>
+    <div class="panel"><h2>Trophy Audit Summary</h2><div id="auditPanel"></div><h2>Journal</h2><p>Add a note to the selected trophy — notes are saved and included in export.</p><textarea id="journalText" rows="3" placeholder="Note for the selected trophy…"></textarea><p><button id="journalSave" type="button">Save journal note</button></p><ul id="journalList" class="jlist"></ul></div>
+  </div>
+</section>
+
+<footer>
+  <p><strong>Sources (the only citations used):</strong> Exophase — Grand Theft Auto VI PSN trophies (exophase.com/game/grand-theft-auto-vi-psn/trophies/) and PSNProfiles — Grand Theft Auto VI trophies (psnprofiles.com/trophies/43531-grand-theft-auto-vi). Both list the official names, descriptions and grades; they agree on every name, description and grade. Counts in guides (42, 14, 18, 52, 9, 8, 500, 100, 250, 20, 5, 3, $250,000, $100,000) come from the official descriptions in the kit. Everything else is labelled STRATEGIC INTERPRETATION or UNVERIFIED.</p>
+  <p>Difficulty and completion time are <strong>Unknown — Not established</strong> for every trophy: no reliable evidence exists, so no numbers are invented. Fan-made, unofficial guide. GTA and Grand Theft Auto are trademarks of their owners; this guide is not affiliated with or endorsed by Rockstar Games or PlayStation.</p>
+  <p>Submission outline: 55 trophies, cited strategy library, platinum navigator with heatmap, risk intelligence, audit system, smart planner, journal, export/import JSON with validation, local persistence, statistics and sharing — all offline, all in this one app.</p>
+</footer>
+<script type="module" src="app.js"></script>
 </body>
 </html>
