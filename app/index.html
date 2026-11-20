@@ -4,129 +4,172 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Leonida Legend — GTA VI Trophy Guide &amp; Tracker</title>
-<meta name="description" content="Offline guide and tracker for all 55 Grand Theft Auto VI PlayStation 5 trophies: checklist, roadmap, missable warning and a cited guide for every trophy.">
+<meta name="description" content="The complete offline guide and tracker for all 55 Grand Theft Auto VI trophies on PlayStation 5: checklist, roadmap to the platinum, cited guides, spoiler-safe.">
 <link rel="stylesheet" href="style.css">
+<script type="module" src="app.js"></script>
 </head>
 <body>
-<header id="top" class="site-header">
-  <div class="header-inner">
-    <div class="brand">
-      <p class="brand-kicker">Grand Theft Auto VI · PlayStation 5</p>
-      <h1>Leonida <span class="neon">Legend</span></h1>
-      <p class="brand-sub">The offline trophy guide &amp; tracker — all 55 trophies, a roadmap to the platinum, and a cited guide for every single one.</p>
+<header class="hero" id="top">
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <p class="eyebrow">Grand Theft Auto VI &middot; PlayStation 5 &middot; 55 trophies</p>
+      <h1><span class="title-leonida">LEONIDA</span> <span class="title-legend">LEGEND</span></h1>
+      <p class="tagline">Every trophy. Every step. One platinum. The complete offline guide &amp; tracker — no ads, no account, no network.</p>
+      <nav class="hero-nav" aria-label="Sections">
+        <a href="#guide" class="nav-link">Guide</a>
+        <a href="#roadmap" class="nav-link">Roadmap</a>
+        <a href="#sources" class="nav-link">Sources</a>
+      </nav>
+      <div class="hero-stats" id="heroStats" aria-live="polite"></div>
     </div>
-    <section id="progress-panel" class="progress-panel" aria-label="Your progress">
-      <div class="ring-wrap">
-        <svg id="completion-ring" viewBox="0 0 120 120" width="120" height="120" role="img" aria-label="Completion ring">
-          <circle class="ring-track" cx="60" cy="60" r="52"></circle>
-          <circle id="ring-value" class="ring-value" cx="60" cy="60" r="52"></circle>
-        </svg>
-        <div class="ring-label"><strong id="ring-count">0/55</strong><span id="ring-percent">0%</span></div>
+    <div class="hero-ring" role="img" aria-label="Completion ring">
+      <svg viewBox="0 0 200 200" class="ring-svg" aria-hidden="true">
+        <defs>
+          <linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#ff2e88"/>
+            <stop offset="0.55" stop-color="#a855f7"/>
+            <stop offset="1" stop-color="#00e5ff"/>
+          </linearGradient>
+        </defs>
+        <circle class="ring-track" cx="100" cy="100" r="84"/>
+        <circle class="ring-fill" id="ringFill" cx="100" cy="100" r="84"/>
+      </svg>
+      <div class="ring-center">
+        <span class="ring-pct" id="ringPct">0%</span>
+        <span class="ring-label">complete</span>
+        <span class="ring-count" id="ringCount">0 / 55</span>
       </div>
-      <div class="totals">
-        <p class="total-line"><span>Gamerscore</span><strong id="total-gamerscore">0 / 1,000G</strong></p>
-        <p class="total-line"><span>PSN points</span><strong id="total-psn">0 / 1,350</strong></p>
-        <p class="total-line"><span>Hidden found</span><strong id="total-hidden">0 / 28</strong></p>
-        <div id="grade-bars" class="grade-bars"></div>
-      </div>
-    </section>
+    </div>
   </div>
 </header>
 
-<section id="toolbar" class="toolbar" aria-label="Filters">
-  <div class="toolbar-inner">
-    <label class="field search-field">Search
-      <input id="filter-q" type="search" placeholder="Try “bowling”, “heist”, “meditate”…" autocomplete="off">
-    </label>
-    <label class="field">Grade
-      <select id="filter-grade">
-        <option value="">All grades</option>
-        <option value="platinum">Platinum</option>
-        <option value="gold">Gold</option>
-        <option value="silver">Silver</option>
-        <option value="bronze">Bronze</option>
-      </select>
-    </label>
-    <label class="field">Status
-      <select id="filter-status">
-        <option value="">All trophies</option>
-        <option value="earned">Earned</option>
-        <option value="remaining">Remaining</option>
-      </select>
-    </label>
-    <label class="field">Category
-      <select id="filter-cat">
-        <option value="">All categories</option>
-        <option value="story">Story</option>
-        <option value="strands">Strangers &amp; strands</option>
-        <option value="collectibles">Collectibles</option>
-        <option value="activities">Activities</option>
-        <option value="world">Open world</option>
-        <option value="missable">⚠ Missable</option>
-      </select>
-    </label>
-    <label class="field">Sort
-      <select id="filter-sort">
-        <option value="list">List order</option>
-        <option value="grade">Grade</option>
-        <option value="name">Name A–Z</option>
-        <option value="rarity">Rarity (grade, then Gamerscore)</option>
-      </select>
-    </label>
-    <label class="field spoiler-field">Hidden trophies
-      <button id="spoiler-toggle" type="button" aria-pressed="false">👁 Reveal spoilers</button>
-    </label>
-  </div>
-  <p id="result-count" class="result-count" role="status"></p>
-</section>
+<main>
+  <section class="nextup" id="nextUp" aria-label="Next up">
+    <div class="section-head">
+      <h2>Next up</h2>
+      <p>The five easiest trophies you have not earned yet — grade first, then Gamerscore.</p>
+    </div>
+    <div class="nextup-list" id="nextUpList"></div>
+  </section>
 
-<main id="guide-layout" class="guide-layout">
-  <section id="trophy-list" class="trophy-list" aria-label="Trophy checklist"></section>
-  <aside id="detail-panel" class="detail-panel" aria-label="Trophy guide" hidden>
-    <button id="detail-close" type="button" class="detail-close" aria-label="Close guide">✕</button>
-    <div id="detail-body"></div>
-  </aside>
+  <section class="guide" id="guide" aria-label="Trophy guide">
+    <div class="section-head">
+      <h2>The guide</h2>
+      <p>Tick a trophy when you earn it — progress saves in your browser. Hidden trophies stay masked until you earn them or switch spoilers off.</p>
+    </div>
+
+    <div class="toolbar" id="toolbar">
+      <input type="search" id="searchInput" placeholder="Search trophies, missions, places…" aria-label="Search trophies">
+      <div class="grade-chips" id="gradeChips" role="group" aria-label="Filter by grade">
+        <button type="button" class="chip active" data-grade="all">All grades</button>
+        <button type="button" class="chip chip-platinum" data-grade="platinum">Platinum</button>
+        <button type="button" class="chip chip-gold" data-grade="gold">Gold</button>
+        <button type="button" class="chip chip-silver" data-grade="silver">Silver</button>
+        <button type="button" class="chip chip-bronze" data-grade="bronze">Bronze</button>
+      </div>
+      <div class="toolbar-row">
+        <label class="field">Status
+          <select id="statusSelect">
+            <option value="all">All trophies</option>
+            <option value="earned">Earned</option>
+            <option value="remaining">Still to earn</option>
+          </select>
+        </label>
+        <label class="field">Category
+          <select id="categorySelect">
+            <option value="all">All categories</option>
+            <option value="story">Story</option>
+            <option value="mission">Missions</option>
+            <option value="activity">Activities</option>
+            <option value="collectible">Collectibles</option>
+            <option value="challenge">Challenges</option>
+            <option value="crime">Crime</option>
+            <option value="completion">Completion</option>
+            <option value="missable">Missable</option>
+          </select>
+        </label>
+        <label class="field">Sort
+          <select id="sortSelect">
+            <option value="list">List order</option>
+            <option value="grade">Grade</option>
+            <option value="name">Name A–Z</option>
+            <option value="rarity">Rarity (grade + Gamerscore)</option>
+          </select>
+        </label>
+        <label class="toggle">
+          <input type="checkbox" id="spoilerToggle" checked>
+          <span class="toggle-track"><span class="toggle-thumb"></span></span>
+          Hide spoilers
+        </label>
+      </div>
+      <div class="toolbar-row actions-row">
+        <button type="button" class="btn" id="exportBtn">Export progress</button>
+        <button type="button" class="btn" id="importBtn">Import progress</button>
+        <input type="file" id="importFile" accept=".json,application/json" hidden>
+        <button type="button" class="btn" id="shareBtn">Copy progress summary</button>
+        <button type="button" class="btn btn-danger" id="resetBtn">Reset progress</button>
+        <span class="result-count" id="resultCount" aria-live="polite"></span>
+      </div>
+    </div>
+
+    <div class="progress-bars" id="progressBars" aria-label="Progress by grade"></div>
+    <div class="card-grid" id="cardGrid"></div>
+    <p class="empty-note" id="emptyNote" hidden>No trophies match these filters — loosen one and try again.</p>
+  </section>
+
+  <section class="roadmap" id="roadmap" aria-label="Roadmap to the platinum">
+    <div class="section-head">
+      <h2>Roadmap to the platinum</h2>
+      <p>Four phases, in order. Play the story first, then clean up the map — that order keeps you from redoing activities. Tap any trophy to open its guide.</p>
+    </div>
+    <ol class="timeline" id="timeline"></ol>
+  </section>
+
+  <section class="sources" id="sources" aria-label="Sources and notes">
+    <div class="section-head">
+      <h2>Sources &amp; notes</h2>
+    </div>
+    <div class="sources-grid">
+      <div class="sources-col">
+        <h3>Where the facts come from</h3>
+        <ul>
+          <li><strong>Exophase</strong> — the official trophy list (names, descriptions, grades), verified live: all 55 descriptions matched in order. <span class="src-url">exophase.com/game/grand-theft-auto-vi-psn/trophies/</span></li>
+          <li><strong>PSNProfiles</strong> — PSN points and progress targets. <span class="src-url">psnprofiles.com/trophies/43531-grand-theft-auto-vi</span></li>
+          <li><strong>GTABase</strong> — Gamerscore values and the possibly-missable flag for Positive Mental Attitude.</li>
+          <li><strong>PowerPyx</strong> — the possibly-missable flag for Positive Mental Attitude; difficulty and time estimates.</li>
+          <li><strong>ofzenandcomputing</strong> — hidden / visible split (28 hidden, 27 visible) and the phase order of the roadmap. <span class="src-url">ofzenandcomputing.com/gta-6-trophy-list-trophies-achievements/</span></li>
+          <li><strong>EGamers</strong> — hidden / visible split and the missable discussion. <span class="src-url">egamers.io/gta-6-trophy-list-all-55-trophies-and-achievements-plus-the-hardest-ones/</span></li>
+          <li><strong>GTA Zone</strong> — 100% counts (stunts, races, challenges), which stranger strands count, and the bank-vault details. <span class="src-url">gta-zone.com/news/gta-6-trophies-achievements/</span></li>
+        </ul>
+        <p class="sources-note">Every guide on this page is written in our own words for this guide. A source is cited, never copied. The official trophy names and descriptions are shown exactly as PlayStation publishes them — that is the one exception.</p>
+      </div>
+      <div class="sources-col">
+        <h3>How rarity works here</h3>
+        <p>No earn-rate percentages are published for this game anywhere, so this guide shows none — any percentage would be invented. Rarity order is grade first, then Gamerscore: Platinum, Gold, Silver, then Bronze by Gamerscore.</p>
+        <h3>Points scales</h3>
+        <p>Gamerscore uses the 180 / 90 / 30 / 10 scale — Platinum 180, Gold 90, Silver 30, Bronze 10 — totalling exactly 1,000G. PSN points use the 300 / 90 / 30 / 15 scale — totalling 1,350.</p>
+        <h3>Missable trophies</h3>
+        <p>Only one trophy is flagged as possibly missable: <strong>Positive Mental Attitude</strong> (meditate at every spot). GTABase and PowerPyx both flag it; other lists report nothing as missable. The guide hedges it and tells you to clear the spots as you find them.</p>
+        <h3>Offline &amp; open</h3>
+        <p>This guide is static files that work with the network off. Your progress never leaves your browser except when you export it yourself. MIT licensed — fork it, host it, improve it.</p>
+      </div>
+    </div>
+  </section>
 </main>
 
-<section id="roadmap" class="roadmap" aria-label="Platinum roadmap">
-  <div class="section-inner">
-    <h2>Roadmap to the Platinum</h2>
-    <p class="section-lede">Seven stages, in the order we would play them. The whole list is offline and nothing
-    online is required. One trophy needs care from the very start: <strong>Positive Mental Attitude</strong> —
-    its first meditation spot is offered at home in Chapter 1 and is reported to disappear after that chapter,
-    so it is flagged in Stage 1, long before the endgame sweep.</p>
-    <ol id="roadmap-steps" class="roadmap-steps"></ol>
-    <p class="roadmap-note">Roadmap built from the official trophy descriptions: the chapters and missions they
-    name, the collectibles and the counts PlayStation tracks. Sources are cited in the Sources section below and
-    beside every trophy's guide.</p>
-  </div>
-</section>
-
-<section id="sources" class="sources" aria-label="Sources">
-  <div class="section-inner">
-    <h2>Sources</h2>
-    <ul id="source-list" class="source-list"></ul>
-    <p class="sources-note">Guides in this app are written for this entry, in our own words; the sources above are
-    cited, never copied. The official trophy names and descriptions are shown exactly as PlayStation publishes
-    them. No earn-rate percentages are shown anywhere in this guide, because no source publishes a trustworthy
-    one for a game this new — rarity sorting uses grade, then Gamerscore, and says so.</p>
-  </div>
-</section>
-
-<footer id="tracker-tools" class="tracker-tools">
-  <div class="section-inner tools-row">
-    <p class="tools-label">Your progress lives in this browser. Take it with you:</p>
-    <button id="export-btn" type="button">⬇ Export progress</button>
-    <label class="import-label">⬆ Import progress
-      <input id="import-file" type="file" accept="application/json,.json" hidden>
-    </label>
-    <button id="reset-btn" type="button" class="danger">Reset progress</button>
-    <p id="tools-status" class="tools-status" role="status"></p>
-  </div>
-  <p class="colophon">Leonida Legend — a fan-made guide for the make.fun bounty gta6-trophy-guide-01.
-  Not affiliated with Rockstar Games or Take-Two Interactive. No official artwork is used; the look is our own.</p>
+<footer class="footer">
+  <p><strong>Leonida Legend</strong> — an unofficial fan guide. Grand Theft Auto and GTA are trademarks of Take-Two Interactive; this guide is not affiliated with Rockstar Games and uses no official artwork or logos.</p>
+  <p><a href="#top">Back to top</a></p>
 </footer>
 
-<script src="app.js"></script>
+<aside class="detail" id="detailPanel" aria-label="Trophy detail" hidden>
+  <div class="detail-backdrop" id="detailBackdrop"></div>
+  <div class="detail-sheet" role="dialog" aria-modal="true" aria-labelledby="detailName">
+    <button type="button" class="detail-close" id="detailClose" aria-label="Close detail">&times;</button>
+    <div class="detail-body" id="detailBody"></div>
+  </div>
+</aside>
+
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 </body>
 </html>
