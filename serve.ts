@@ -1,21 +1,20 @@
-// A tiny static server for the guide's app/ folder (Node 22, standard
-// library only), for trying it locally with no build step:
-//   node serve.ts            serves app/ on http://localhost:8080
-//   node serve.ts --port 9000   serves it on another port instead
-// It only ever serves files inside app/, sends the MIME types a browser
-// needs, and does nothing else: a development convenience, not a web server.
-
+// A tiny static server for app/ (Node 22, standard library only), so the guide can
+// be run locally without a build step: `node serve.ts` serves app/ on
+// http://localhost:8080 (`--port <n>` for another port). It sends the MIME types a
+// browser needs, refuses any path outside app/, and otherwise does nothing clever:
+// this is a development convenience, not a web server for the internet.
 import { createReadStream, statSync } from 'node:fs';
 import { createServer } from 'node:http';
 import { extname, join, normalize, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const appRoot = resolve(fileURLToPath(new URL('./app', import.meta.url)));
-const portArg = process.argv.indexOf('--port');
-const wantedPort = portArg === -1 ? 8080 : Number(process.argv[portArg + 1]);
-const port = Number.isInteger(wantedPort) && wantedPort > 0 && wantedPort < 65536 ? wantedPort : 8080;
+const root = resolve(fileURLToPath(new URL('./app', import.meta.url)));
+const args = process.argv.slice(2);
+const portIndex = args.indexOf('--port');
+const requested = portIndex === -1 ? 8080 : Number(args[portIndex + 1]);
+const port = Number.isInteger(requested) && requested > 0 && requested < 65536 ? requested : 8080;
 
-const MIME_TYPES = {
+const MIME: Record<string, string> = {
   '.html': 'text/html; charset=utf-8',
   '.js': 'text/javascript; charset=utf-8',
   '.mjs': 'text/javascript; charset=utf-8',
@@ -31,21 +30,22 @@ const MIME_TYPES = {
   '.webmanifest': 'application/manifest+json',
 };
 
-function serveFile(request, response) {
-  let pathname;
+createServer((request, response) => {
+  const url = new URL(request.url ?? '/', 'http://localhost');
+  let pathname: string;
   try {
-    pathname = decodeURIComponent(new URL(request.url ?? '/', 'http://localhost').pathname);
+    pathname = decodeURIComponent(url.pathname);
   } catch {
     response.writeHead(400).end('bad request');
     return;
   }
   if (pathname.endsWith('/')) pathname += 'index.html';
-  const file = resolve(join(appRoot, normalize(pathname)));
-  if (file !== appRoot && !file.startsWith(appRoot + sep)) {
+  const file = resolve(join(root, normalize(pathname)));
+  if (file !== root && !file.startsWith(root + sep)) {
     response.writeHead(403).end('forbidden');
     return;
   }
-  let size;
+  let size: number;
   try {
     const stats = statSync(file);
     if (!stats.isFile()) throw new Error('not a file');
@@ -55,13 +55,11 @@ function serveFile(request, response) {
     return;
   }
   response.writeHead(200, {
-    'content-type': MIME_TYPES[extname(file).toLowerCase()] ?? 'application/octet-stream',
+    'content-type': MIME[extname(file).toLowerCase()] ?? 'application/octet-stream',
     'content-length': size,
     'cache-control': 'no-store',
   });
   createReadStream(file).pipe(response);
-}
-
-createServer(serveFile).listen(port, '127.0.0.1', () => {
-  console.log(`Leonida Legend is on http://localhost:${port}`);
+}).listen(port, '127.0.0.1', () => {
+  console.log(`app/ is on http://localhost:${port}`);
 });
