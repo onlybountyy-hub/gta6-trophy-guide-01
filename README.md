@@ -1,69 +1,42 @@
 # Leonida Legend — GTA VI Trophy Guide & Tracker
 
-![make.fun gta6-trophy-guide-01](https://make.fun/badge/gta6-trophy-guide-01.svg)
+![make.fun](https://make.fun/badge/gta6-trophy-guide-01.svg)
 ![rank](https://make.fun/badge/gta6-trophy-guide-01/onlybountyy-hub/gta6-trophy-guide-01/rank.svg)
 ![reward](https://make.fun/badge/gta6-trophy-guide-01/onlybountyy-hub/gta6-trophy-guide-01/reward.svg)
 
-An offline guide and tracker for all **55 PlayStation 5 trophies** of Grand Theft Auto VI:
-1 Platinum, 2 Gold, 6 Silver and 46 Bronze — 28 of them hidden, 1,000 Gamerscore and
-1,350 PSN points in total.
+**The complete offline guide and tracker for all 55 Grand Theft Auto VI trophies on PlayStation 5** — built for the [make.fun bounty](https://make.fun/bounty/gta6-trophy-guide-01) ([referral](https://make.fun/r/q6ckzx1w)).
 
-Built for the make.fun bounty [gta6-trophy-guide-01](https://make.fun/bounty/gta6-trophy-guide-01).
+Every trophy with its official name, description and grade; a checklist that saves in your browser; a spoiler setting that hides story trophies until you earn them; filters by grade, category and status; a four-phase roadmap to the platinum; and a cited, step-by-step guide for each trophy — all in static files that work with the network off.
 
-## What it does
+## What is inside
 
-- **Full checklist** — every trophy with its official name, description and grade, exactly
-  as PlayStation publishes them.
-- **Tracker** — tick trophies off as you earn them; progress is saved in your browser
-  (localStorage) and can be **exported to a file and imported back** on any machine.
-- **Progress at a glance** — a completion ring, per-grade progress bars, and running
-  Gamerscore / PSN-points totals.
-- **Spoiler shield** — hidden trophies are masked by default; reveal them only when you
-  want to. Your choice is remembered and can be shared as a link.
-- **Filters, search and sorts** — by status (earned / remaining), grade, and category
-  (story, strands, collectibles, activities, world — plus a dedicated Missable view),
-  with sorts by list order, grade, name, or rarity.
-- **A guide for every trophy** — in our own words, each with its sources cited beside it.
-  No earn-rate percentages are shown, because no source publishes a trustworthy one;
-  rarity here is ordered by grade and Gamerscore, and the app says so.
-- **Platinum roadmap** — the seven-stage order we recommend, from the opening mission
-  to the 100% sweep, with the one possibly-missable trophy flagged up front.
-- **Works fully offline** — static files only; open it, bookmark it, take it anywhere.
+- `app/` — the guide itself: `index.html`, `style.css`, `app.js`, and `app/data/trophies.json` (all 55 trophies: 1 Platinum, 2 Gold, 6 Silver, 46 Bronze; 28 hidden, 27 visible; 1,000 Gamerscore; 1,350 PSN points).
+- `screenshots/` — four renders of the guide running in a browser.
+- `main.ts` — the entry program (Node 22, standard library only): copies `app/` and `screenshots/` to the output and writes `dossier.json`.
+- `serve.ts` — a tiny static server for trying the guide locally.
+- `vendor/makefun-frontend.ts` — the kit's dossier library, unchanged.
 
-## Run it
+## Try it
 
 ```sh
-node serve.ts            # serves app/ at http://localhost:8080
+node serve.ts
 ```
 
-or serve the `app/` folder with any static file server. No build step, no network needed.
+Then open http://localhost:8080 — no build step, no network needed.
 
-## Hand it in (make.fun program)
+## The guide at a glance
 
-```sh
-mkdir -p out && MAKEFUN_OUTPUT_DIR=out node main.ts
-```
+- **Tracker:** tick trophies as you earn them; progress saves in localStorage, exports to a file, and imports back. Search, sort (list / grade / name / rarity), and filter by grade, status and category, including a Missable category.
+- **Next up:** the five easiest trophies you have not earned yet, updating as you check boxes off.
+- **Spoilers:** hidden trophies stay masked by default until earned or revealed.
+- **Roadmap:** four phases in order — story, side characters & the map, activities & challenges, crime & the 100% cleanup.
+- **Guides:** every trophy has numbered steps in our own words, with its sources named beside it. Only one trophy is flagged as possibly missable (Positive Mental Attitude), hedged as the sources hedge it.
+- **Honesty note:** no earn-rate percentages are published for this game anywhere, so this guide shows none. Rarity order is grade, then Gamerscore.
 
-`main.ts` copies `app/` and `screenshots/` to the output directory and writes
-`dossier.json` with the vendored `buildDossier` from `vendor/makefun-frontend.ts`
-(the kit's library, byte for byte).
+## Sources
 
-## Data & sources
-
-Trophy names, descriptions and grades are the official ones, as listed by
-[Exophase](https://www.exophase.com/game/grand-theft-auto-vi-psn/trophies/) and
-[PSNProfiles](https://psnprofiles.com/trophies/43531-grand-theft-auto-vi) (the two agree on
-every name, description and grade). PSN progress counts (250 stunts, 42 shooting-range
-challenges, 500 choices…) are PSN's own, via PSNProfiles. The hidden/visible split and the
-Gamerscore values are cross-checked against GTABase's list and PlanetGTA6's table; the one
-possibly-missable trophy (Positive Mental Attitude) is flagged following PowerPyx and
-GTABase. Every guide in the app is written for this entry and names its sources next to the
-trophy it covers.
-
-## Referral
-
-Found this through make.fun? Join with our referral link: https://make.fun/r/q6ckzx1w
+Names, descriptions and grades: the official list via Exophase (verified live). Hidden / visible split: ofzenandcomputing and EGamers. PSN points and progress targets: PSNProfiles. Gamerscore scale and the missable flag: GTABase and PowerPyx. 100% counts and stranger details: GTA Zone. Full citations live in the app's Sources section and beside each trophy's guide.
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+MIT — see [LICENSE](LICENSE). An unofficial fan guide, not affiliated with Rockstar Games; it uses no official artwork or logos.
