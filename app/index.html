@@ -3,85 +3,173 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>LEONIDA — Trophy Intelligence | GTA VI Trophy Guide</title>
+<title>LEONIDA — Trophy Intelligence · GTA VI Trophy Guide (fan-made)</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header class="top">
+<header class="topbar">
   <div class="brand">
-    <div class="logo">LEONIDA</div>
-    <div class="tag">TROPHY INTELLIGENCE &middot; THE DEFINITIVE FAN-MADE GTA VI TROPHY COMPANION</div>
-    <div class="disclaimer">Fan-made guide — the trophy list is speculative, from the competition kit, not the confirmed final GTA VI list. No Rockstar logo or artwork.</div>
-  </div>
-  <div class="plat">
-    <svg class="ring" viewBox="0 0 120 120" width="86" height="86" aria-label="Platinum progress ring"><circle cx="60" cy="60" r="52" class="ring-bg"/><circle id="ringFg" cx="60" cy="60" r="52" class="ring-fg"/><text id="ringPct" x="60" y="66" class="ring-txt">0%</text></svg>
-    <div class="plat-txt"><strong id="progressLine">0 of 55 earned</strong><span id="progressSub">Platinum: Vice Got a Price! — 0 of 54 others earned</span><span id="saveState" class="saved">Progress saved</span><span id="demoBadge" class="demo" hidden>Demo progress — fixed sample data</span></div>
-  </div>
-</header>
-<nav class="tabs" id="tabs">
-  <button type="button" data-view="command" class="active">Command Center</button>
-  <button type="button" data-view="guide">Strategy Library</button>
-  <button type="button" data-view="roadmap">Platinum Navigator</button>
-  <button type="button" data-view="toolkit">Player Toolkit</button>
-</nav>
-<div class="controls" id="controls">
-  <input id="search" type="search" placeholder="Search trophies, missions, counts…" aria-label="Search trophies">
-  <select id="grade" aria-label="Filter by grade"><option value="all">All grades</option><option value="platinum">Platinum</option><option value="gold">Gold</option><option value="silver">Silver</option><option value="bronze">Bronze</option></select>
-  <select id="category" aria-label="Filter by category"><option value="all">All categories</option></select>
-  <select id="risk" aria-label="Filter by risk"><option value="all">All risk classes</option><option value="NO MISSABLE EVIDENCE">No missable evidence</option><option value="CHOICE-SENSITIVE">Choice-sensitive</option></select>
-  <select id="status" aria-label="Filter by status"><option value="all">All statuses</option><option value="earned">Earned</option><option value="remaining">Remaining</option></select>
-  <span id="countLine" class="countline"></span>
-</div>
-
-<section id="view-command" class="view">
-  <div class="cmd-grid">
-    <div class="panel list-panel"><h2>Trophy Checklist</h2><ul id="list" class="tlist"></ul></div>
-    <div class="panel detail-panel"><h2>Selected Guide</h2><div id="detail"></div></div>
-    <div class="panel side-panel">
-      <h2>Next Recommendation</h2><div id="nextRec"></div>
-      <h2>Progress Tools</h2>
-      <div class="toolrow"><button id="exportBtn" type="button">Export progress (JSON)</button><label class="import">Import progress<input id="importFile" type="file" accept="application/json"></label></div>
-      <p id="importMsg" class="msg"></p>
-      <h2>At a Glance</h2><div id="miniStats" class="ministats"></div>
-      <h2>Audit Summary</h2><div id="miniAudit" class="ministats"></div>
+    <div class="brand-mark">L</div>
+    <div>
+      <h1>LEONIDA <span>— TROPHY INTELLIGENCE</span></h1>
+      <p class="tagline">The definitive fan-made GTA VI trophy companion · 55 trophies · PlayStation 5</p>
     </div>
   </div>
-</section>
-
-<section id="view-guide" class="view" hidden>
-  <div class="guide-grid">
-    <div class="panel"><h2>All 55 Guides</h2><ul id="guideList" class="tlist compact"></ul></div>
-    <div class="panel"><h2>Evidence Intelligence — Full Guide</h2><div id="guideDetail"></div></div>
+  <div class="top-actions">
+    <span id="demoBadge" class="demo-badge" hidden>Demo progress</span>
+    <span id="saveStatus" class="save-status">Progress saved locally</span>
+    <button id="exportBtn" type="button">Export JSON</button>
+    <label class="import-label">Import JSON <input id="importFile" type="file" accept="application/json,.json"></label>
+    <button id="shareBtn" type="button">Share progress</button>
   </div>
-</section>
+</header>
+<p class="disclaimer">Fan-made and speculative: this trophy list comes from the make.fun competition kit dataset. It is not the officially confirmed final GTA VI trophy list, and this app is not affiliated with Rockstar Games or PlayStation.</p>
 
-<section id="view-roadmap" class="view" hidden>
-  <div class="panel"><h2>Platinum Navigator — 5 Phases to the Platinum</h2><div id="phases" class="phases"></div></div>
-  <div class="road-grid">
-    <div class="panel"><h2>Completion Heatmap — 55 Trophies</h2><div id="heatmap" class="heatmap"></div><p class="legend"><span class="sw earned">Earned</span><span class="sw remaining">Not started</span><span class="sw review">Audit: review</span> Click a cell to open its guide.</p></div>
-    <div class="panel"><h2>Risk Intelligence</h2><div id="riskPanel"></div></div>
-    <div class="panel"><h2>Verified Relationships</h2><div id="relPanel"></div></div>
-  </div>
-</section>
+<nav class="view-tabs" aria-label="Views">
+  <button type="button" data-view="command" class="tab active">Command Center</button>
+  <button type="button" data-view="guide" class="tab">Evidence Intelligence</button>
+  <button type="button" data-view="navigator" class="tab">Platinum Navigator</button>
+  <button type="button" data-view="toolkit" class="tab">Player Toolkit</button>
+</nav>
 
-<section id="view-toolkit" class="view" hidden>
-  <div class="tool-grid">
-    <div class="panel"><h2>Export / Import</h2><p>Progress, journal notes and audit state are saved in this browser (localStorage) and travel in one JSON file.</p>
-      <div class="toolrow"><button id="exportBtn2" type="button">Export progress (JSON)</button><label class="import">Import progress<input id="importFile2" type="file" accept="application/json"></label></div>
-      <p id="importMsg2" class="msg"></p>
-      <p><button id="shareBtn" type="button">Share progress summary</button> <button id="resetBtn" type="button">Reset progress…</button></p>
-      <p id="shareOut" class="msg"></p>
-      <h2>Backup Status</h2><p id="backupLine" class="msg"></p></div>
-    <div class="panel"><h2>Statistics</h2><div id="gradeStats"></div><div id="catStats"></div></div>
-    <div class="panel"><h2>Trophy Audit Summary</h2><div id="auditPanel"></div><h2>Journal</h2><p>Add a note to the selected trophy — notes are saved and included in export.</p><textarea id="journalText" rows="3" placeholder="Note for the selected trophy…"></textarea><p><button id="journalSave" type="button">Save journal note</button></p><ul id="journalList" class="jlist"></ul></div>
-  </div>
-</section>
+<main>
+  <!-- ============ VIEW: COMMAND CENTER ============ -->
+  <section id="view-command" class="view">
+    <div class="command-grid">
+      <div class="panel progress-panel">
+        <h2>Platinum progress</h2>
+        <div class="ring-wrap">
+          <div class="ring" id="progressRing"><span id="progressPct">0%</span></div>
+          <div class="progress-numbers">
+            <p><strong id="earnedCount">0</strong> of 55 trophies earned</p>
+            <p id="gradeLine" class="muted"></p>
+            <p id="nextUp" class="next-up"></p>
+          </div>
+        </div>
+        <div class="planner-box">
+          <h3>Smart planner — next recommendation</h3>
+          <p id="plannerText"></p>
+          <p id="plannerWhy" class="muted"></p>
+        </div>
+        <div class="risk-box">
+          <h3>Risk intelligence</h3>
+          <ul id="riskSummary" class="risk-summary"></ul>
+        </div>
+      </div>
+
+      <div class="panel list-panel">
+        <div class="list-head">
+          <h2>Trophy checklist <span id="listCount" class="muted"></span></h2>
+          <div class="controls">
+            <input id="searchBox" type="search" placeholder="Search trophies, objectives, categories…" aria-label="Search trophies">
+            <select id="gradeFilter" aria-label="Filter by grade">
+              <option value="all">All grades</option>
+              <option value="platinum">Platinum</option>
+              <option value="gold">Gold</option>
+              <option value="silver">Silver</option>
+              <option value="bronze">Bronze</option>
+            </select>
+            <select id="stateFilter" aria-label="Filter by state">
+              <option value="all">All states</option>
+              <option value="earned">Earned</option>
+              <option value="open">Not earned</option>
+            </select>
+            <label class="spoiler-toggle"><input id="spoilerToggle" type="checkbox"> Spoiler shield (hide story trophies)</label>
+          </div>
+        </div>
+        <ul id="trophyList" class="trophy-list"></ul>
+      </div>
+
+      <div class="panel detail-panel" id="commandDetail"></div>
+    </div>
+  </section>
+
+  <!-- ============ VIEW: EVIDENCE INTELLIGENCE ============ -->
+  <section id="view-guide" class="view" hidden>
+    <div class="guide-layout">
+      <div class="panel guide-picker">
+        <h2>Strategy Library — pick a trophy</h2>
+        <input id="guideSearch" type="search" placeholder="Search the library…" aria-label="Search guides">
+        <ul id="guideIndex" class="guide-index"></ul>
+      </div>
+      <div class="panel guide-full" id="guideFull"></div>
+    </div>
+  </section>
+
+  <!-- ============ VIEW: PLATINUM NAVIGATOR ============ -->
+  <section id="view-navigator" class="view" hidden>
+    <div class="navigator-grid">
+      <div class="panel phases-panel">
+        <h2>Platinum Navigator — roadmap in 5 phases</h2>
+        <p class="muted">Planning phases built from the kit dataset's own categories and counts. They are an organisation of the 55 objectives, not a confirmed GTA VI mission sequence.</p>
+        <div id="phaseList"></div>
+      </div>
+      <div class="navigator-side">
+        <div class="panel">
+          <h2>Completion heatmap — all 55</h2>
+          <div id="heatmap" class="heatmap"></div>
+          <p class="legend"><span class="sw done"></span> Earned <span class="sw open"></span> Not started <span class="sw verify"></span> Needs verification (vague objective)</p>
+        </div>
+        <div class="panel">
+          <h2>Risk intelligence</h2>
+          <ul id="riskDetail" class="risk-detail"></ul>
+        </div>
+        <div class="panel">
+          <h2>Verified relationships</h2>
+          <div id="relationships"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ VIEW: PLAYER TOOLKIT ============ -->
+  <section id="view-toolkit" class="view" hidden>
+    <div class="toolkit-grid">
+      <div class="toolkit-col">
+      <div class="panel">
+        <h2>Progress backup &amp; transfer</h2>
+        <p>Export saves your checklist, journal notes and metadata as one JSON file. Import validates the file's schema and version before anything is replaced — an invalid file changes nothing.</p>
+        <div class="toolkit-actions">
+          <button id="exportBtn2" type="button">Export JSON</button>
+          <label class="import-label">Import JSON <input id="importFile2" type="file" accept="application/json,.json"></label>
+          <button id="shareBtn2" type="button">Share progress summary</button>
+          <button id="resetBtn" type="button" class="danger">Reset progress…</button>
+        </div>
+        <p id="backupStatus" class="backup-status"></p>
+        <p id="importMessage" class="import-message" role="status"></p>
+        <h3>Shareable summary</h3>
+        <textarea id="shareText" rows="4" readonly></textarea>
+      </div>
+      <div class="panel">
+        <h2>Trophy audit summary</h2>
+        <div id="auditBox"></div>
+      </div>
+      </div>
+      <div class="toolkit-col">
+      <div class="panel">
+        <h2>Statistics</h2>
+        <div id="statsBox"></div>
+      </div>
+      <div class="panel journal-panel">
+        <h2>Personal trophy journal</h2>
+        <p class="muted">Notes are stored per trophy, persist locally, and travel inside the JSON export.</p>
+        <label>Trophy <select id="journalSelect"></select></label>
+        <textarea id="journalText" rows="5" placeholder="Attempts, observations, questions to verify later…"></textarea>
+        <div class="toolkit-actions">
+          <button id="journalSave" type="button">Save journal note</button>
+          <span id="journalStatus" class="muted"></span>
+        </div>
+        <ul id="journalList" class="journal-list"></ul>
+      </div>
+      </div>
+    </div>
+  </section>
+</main>
 
 <footer>
-  <p><strong>Sources (the only citations used):</strong> Exophase — Grand Theft Auto VI PSN trophies (exophase.com/game/grand-theft-auto-vi-psn/trophies/) and PSNProfiles — Grand Theft Auto VI trophies (psnprofiles.com/trophies/43531-grand-theft-auto-vi). Both list the official names, descriptions and grades; they agree on every name, description and grade. Counts in guides (42, 14, 18, 52, 9, 8, 500, 100, 250, 20, 5, 3, $250,000, $100,000) come from the official descriptions in the kit. Everything else is labelled STRATEGIC INTERPRETATION or UNVERIFIED.</p>
-  <p>Difficulty and completion time are <strong>Unknown — Not established</strong> for every trophy: no reliable evidence exists, so no numbers are invented. Fan-made, unofficial guide. GTA and Grand Theft Auto are trademarks of their owners; this guide is not affiliated with or endorsed by Rockstar Games or PlayStation.</p>
-  <p>Submission outline: 55 trophies, cited strategy library, platinum navigator with heatmap, risk intelligence, audit system, smart planner, journal, export/import JSON with validation, local persistence, statistics and sharing — all offline, all in this one app.</p>
+  <p>Sources: trophy names, descriptions and grades as PlayStation publishes them, listed identically by Exophase and PSNProfiles before this guide was built; the competition kit dataset is the local copy used here. Strategy text is LEONIDA's own interpretation and is labelled as such in every guide. Difficulty and completion-time estimates: Unknown — Not established (no reliable evidence).</p>
 </footer>
+
 <script type="module" src="app.js"></script>
 </body>
 </html>
